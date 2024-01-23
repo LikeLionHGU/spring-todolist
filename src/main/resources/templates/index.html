@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fancy To-Do List</title>
+</head>
+<body>
+<h1>Simple To-Do List</h1>
+<form th:action="@{/tasks}" method="post">
+    <input type="text" name="content" placeholder="Task title" required>
+    <button type="submit">Add Task</button>
+</form>
+<ul>
+    <li class="list" th:each="task, loopStatus : ${tasks}">
+        <label>
+            <input type="checkbox" class="complete" th:onclick="'deleteTask(' + ${task.id} + ')'"/>
+        </label>
+        <span class="task-title" th:text="${task.getContent}"></span>
+        <button type="button" class="edit-btn" th:data-id="${task.id}" th:data-title="${task.getContent}"
+                th:data-index="${loopStatus.index}">edit
+        </button>
+    </li>
+</ul>
+<script th:src="@{/script.js}"></script>
+</body>
+</html>
